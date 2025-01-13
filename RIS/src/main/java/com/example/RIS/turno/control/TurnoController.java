@@ -22,4 +22,10 @@ public class TurnoController {
     public List<Turno> listarTurnos() {
         return turnoService.listarTurnos();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Turno> editarTurno(@PathVariable Long id, @RequestBody Turno turnoActualizado) {
+        return ResponseEntity.ok(turnoService.editarTurno(id, turnoActualizado));
+    }
 }
+

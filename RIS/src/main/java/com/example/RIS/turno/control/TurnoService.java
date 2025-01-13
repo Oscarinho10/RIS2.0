@@ -27,5 +27,24 @@ public class TurnoService {
         }
         return turnoRespository.save(turno);
     }
+
+    // Método para editar un turno
+    public Turno editarTurno(Long id, Turno turnoActualizado) {
+        return turnoRespository.findById(id).map(turno -> {
+            turno.setPaciente(turnoActualizado.getPaciente());
+            turno.setFechaHora(turnoActualizado.getFechaHora());
+            turno.setDoctor(turnoActualizado.getDoctor());
+
+            // Actualizamos el insumo si es diferente del anterior
+            if (turno.getInsumo() != null && turnoActualizado.getInsumo() != null
+                    && !turno.getInsumo().getId().equals(turnoActualizado.getInsumo().getId())) {
+                insumoService.decrementarStock(turnoActualizado.getInsumo().getId());
+            }
+
+            turno.setInsumo(turnoActualizado.getInsumo());
+            return turnoRespository.save(turno);
+        }).orElseThrow(() -> new RuntimeException("Turno no encontrado con el ID: " + id));
+    }
 }
+
 
