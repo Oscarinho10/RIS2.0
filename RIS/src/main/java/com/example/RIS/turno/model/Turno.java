@@ -4,15 +4,13 @@ import com.example.RIS.doctor.model.Doctor;
 import com.example.RIS.insumo.model.Insumo;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 public class Turno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String paciente;
-    private LocalDateTime fechaHora;
+    private String fechaHora; // Cambiado de LocalDateTime a String
 
     @ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)
@@ -21,8 +19,8 @@ public class Turno {
     @ManyToOne
     @JoinColumn(name = "insumo_id")
     private Insumo insumo;
-    // Getters y setters
 
+    // Getters y setters
 
     public Long getId() {
         return id;
@@ -40,11 +38,11 @@ public class Turno {
         this.paciente = paciente;
     }
 
-    public LocalDateTime getFechaHora() {
+    public String getFechaHora() {
         return fechaHora;
     }
 
-    public void setFechaHora(LocalDateTime fechaHora) {
+    public void setFechaHora(String fechaHora) {
         this.fechaHora = fechaHora;
     }
 
