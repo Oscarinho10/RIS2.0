@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TurnoService {
@@ -35,6 +36,11 @@ public class TurnoService {
             turno.setInsumo(turnoActualizado.getInsumo());
             return turnoRespository.save(turno);
         }).orElseThrow(() -> new RuntimeException("Turno no encontrado con el ID: " + id));
+    }
+
+    public Turno obtenerTurnoPorId(Long id) {
+        Optional<Turno> turno = turnoRespository.findById(id);
+        return turno.orElseThrow(() -> new RuntimeException("Turno no encontrado con el ID: " + id));
     }
 }
 
